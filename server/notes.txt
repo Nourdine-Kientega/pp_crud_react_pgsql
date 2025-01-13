@@ -1,0 +1,24 @@
+
+                                            ============== 11/01/2025 =========
+
+=> mkdir server;
+
+=> npm init -y;
+
+=> npm i express;
+
+=> npm i dotenv;
+
+=> npm i pg; 
+
+=>
+
+
+
+
+
+
+
+
+
+
