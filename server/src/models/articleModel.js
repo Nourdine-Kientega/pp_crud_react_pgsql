@@ -19,6 +19,21 @@ const createTables = async () => {
 
     );`;
 
+    const autoUpdateTimestamp = `
+        CREATE OR REPLACE FUNCTION set_updated_at()
+        RETURNS TRIGGER AS $$
+        BEGIN
+            NEW.updated_at = CURRENT_TIMESTAMP;
+            RETURN NEW;
+        END;
+        $$ LANGUAGE plpgsql;
+
+        CREATE TRIGGER update_timestamp
+        BEFORE UPDATE ON example
+        FOR EACH ROW
+        EXECUTE FUNCTION set_updated_at();
+    `;
+
     try {
 
         const checkTable = await dbConnection.query(checkArticleTable); 
@@ -33,6 +48,8 @@ const createTables = async () => {
             // create table in database
             await dbConnection.query(ArticleTable);
             console.log('Articles table created successfully !');
+            // make auto update_at field for autofield
+            await dbConnection.query(autoUpdateTimestamp);
         }
 
     } catch (error) {
