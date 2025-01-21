@@ -1,10 +1,8 @@
 
-                                        ========= 11/01/2025 ========
+                                        ========== 21/01/2025 ========
 
 => npm create vite@latest client;
 
-=> cd client && npm install;
+=> cd client && npm i;
 
-=> npm run dev;
-
-=> rm -rf .git;
+=> npm i react-router-dom;
