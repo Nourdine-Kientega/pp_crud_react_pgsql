@@ -2,17 +2,14 @@ const { getAllArticles, addArticle, getOneArticle, updateArticle, removeArticle 
 
 const articlesRouter = require('express').Router();
 
-articlesRouter.get('/', getAllArticles);
+articlesRouter.get('/articles', getAllArticles);
 
-articlesRouter.get('/:id', getOneArticle);
+articlesRouter.get('/articles/:id', getOneArticle);
 
-articlesRouter.post('/', addArticle);
+articlesRouter.post('/articles/', addArticle);
 
-articlesRouter.put('/:id', updateArticle);
+articlesRouter.put('/articles/:id', updateArticle);
 
-articlesRouter.delete('/:id', removeArticle);
-
-// routes Router express
-
+articlesRouter.delete('/articles/:id', removeArticle);
 
 module.exports = articlesRouter;

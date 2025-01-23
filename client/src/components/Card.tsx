@@ -8,12 +8,8 @@ const Card = () => {
     <h5 className="card-title">Card title</h5>
     <p className="card-text"> Card description Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <div className="d-flex justify-content-between">
-      <tr>
-        <th>Author:</th>
-      </tr>
-      <tr>
-        <td>Kientega Nourdine</td>
-      </tr>
+      <strong>Author:</strong>
+      <span>Kientega Nourdine</span>
     </div>
     <hr className='mt-1' />
     <a href="#" className="btn btn-primary">Read more</a>
