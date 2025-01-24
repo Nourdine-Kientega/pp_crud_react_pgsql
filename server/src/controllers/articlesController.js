@@ -48,31 +48,35 @@ const getOneArticle = (req, res) => {
 // add an article
 const addArticle = (req, res) => {
 
-    const { image, title, description, author, content } = req.body;
+    // const { title, author, description, image, content } = req.body;
 
-    console.log(req.body);
+    console.log('body', req.body);
+    console.log('image', req.file);
+    // console.log(req.file);
     
-
-    try {
+    
+    return;
+  
+    // try {
         
-        const query = `INSERT INTO articles(image, title, description, author, content) VALUES ($1, $2, $3, $4, $5)`;
+    //     const query = `INSERT INTO articles(image, title, description, author, content) VALUES ($1, $2, $3, $4, $5)`;
 
-        dbConnection.query(query, [image, title, description, author, content], (err, response) => {
+    //     dbConnection.query(query, [image, title, description, author, content], (err, response) => {
 
-            if(err) {
-                console.log(err);
-                return;
-            }
+    //         if(err) {
+    //             console.log(err);
+    //             return;
+    //         }
 
-            res.send(response);
-        });
+    //         res.send(response);
+    //     });
 
-    } catch (error) {
-        console.log('Error for adding new article', error);
-    }
+    // } catch (error) {
+    //     console.log('Error for adding new article', error);
+    // }
 
 };
-
+  
 // update article using id params
 const updateArticle = (req, res) => {
 

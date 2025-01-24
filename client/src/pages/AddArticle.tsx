@@ -10,33 +10,37 @@ const AddArticle = () => {
 
     const handleSubmit = async (e: any) => {
 
-
-        const article = { title, author, description, image, content };
-
         e.preventDefault();
 
-        const res = await fetch('http://localhost:3000');
+        const formData = new FormData();
 
-        const data = await res.json();
+        formData.append('title', title);
+        formData.append('author', author);
+        formData.append('description', description);
+        formData.append('content', content);
 
-        console.log(data);
-        
+        if(image) { // check that image exists
+            formData.append('image', image); 
+        }
 
-        console.log('Submit', article);
+        try {
+                    
+            const res = await fetch('http://localhost:3000/articles', {
+                method: 'POST',
+                body: formData
+            });   
+  
+            console.log(res.ok);
+
+        } catch (error) {
+            console.log('Error to fetch POST article: ', error);
+        }
         
     };
 
 
 
-    // id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    // image VARCHAR(255),
-    // title VARCHAR(255) NOT NULL,
-    // description VARCHAR(255),
-    // author VARCHAR(100),
-    // content TEXT NOT NULL,
-    // created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    // updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
+    
   return (
     <div className="container">
     <h1 className="text-center mt-4 mb-5">Add new blog</h1>
