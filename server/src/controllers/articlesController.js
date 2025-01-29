@@ -48,32 +48,30 @@ const getOneArticle = (req, res) => {
 // add an article
 const addArticle = (req, res) => {
 
-    // const { title, author, description, image, content } = req.body;
+    const { title, author, description, content } = req.body;
+    let image_path = '';
 
-    console.log('body', req.body);
-    console.log('image', req.file);
-    // console.log(req.file);
-    
-    
-    return;
-  
-    // try {
+    if(req.file) {
+        image_path = req.file.filename;
+    }
+
+    try {
         
-    //     const query = `INSERT INTO articles(image, title, description, author, content) VALUES ($1, $2, $3, $4, $5)`;
+        const query = `INSERT INTO articles(image, title, description, author, content) VALUES ($1, $2, $3, $4, $5)`;
 
-    //     dbConnection.query(query, [image, title, description, author, content], (err, response) => {
+        dbConnection.query(query, [image_path, title, description, author, content], (err, response) => {
 
-    //         if(err) {
-    //             console.log(err);
-    //             return;
-    //         }
+            if(err) {
+                console.log(err);
+                return;
+            }
 
-    //         res.send(response);
-    //     });
+            res.send(response);
+        });
 
-    // } catch (error) {
-    //     console.log('Error for adding new article', error);
-    // }
+    } catch (error) {
+        console.log('Error for adding new article', error);
+    }
 
 };
   
@@ -83,10 +81,16 @@ const updateArticle = (req, res) => {
     try {
         
         const { id } = req.params;
-        const { image, title, description, author, content } = req.body;
+        const { title, description, author, content } = req.body;
+        let image_path = '';
+        const updated_at = new Date().toISOString();
+
+        if(req.file) {
+            image_path = req.file.path;
+        }
 
         const findQuery = `SELECT * FROM articles WHERE id = $1`;
-        const updateQuery = `UPDATE articles SET image = $1, title = $2, description = $3, author = $4, content = $5 WHERE id = $6`;
+        const updateQuery = `UPDATE articles SET image = $1, title = $2, description = $3, author = $4, content = $5, updated_at = $6 WHERE id = $7`;
 
         dbConnection.query(findQuery, [id], (err, response) => {
 
@@ -97,7 +101,7 @@ const updateArticle = (req, res) => {
 
             if(response.rows.length > 0) {
 
-                dbConnection.query(updateQuery, [image, title, description, author, content, id], (err, response) => {
+                dbConnection.query(updateQuery, [image_path, title, description, author, content, updated_at, id], (err, response) => {
 
                     if(err) {
                         console.log(err);

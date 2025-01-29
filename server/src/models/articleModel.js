@@ -29,7 +29,7 @@ const createTables = async () => {
         $$ LANGUAGE plpgsql;
 
         CREATE TRIGGER update_timestamp
-        BEFORE UPDATE ON example
+        BEFORE UPDATE ON articles
         FOR EACH ROW
         EXECUTE FUNCTION set_updated_at();
     `;
@@ -49,7 +49,7 @@ const createTables = async () => {
             await dbConnection.query(ArticleTable);
             console.log('Articles table created successfully !');
             // make auto update_at field for autofield
-            await dbConnection.query(autoUpdateTimestamp);
+            // await dbConnection.query(autoUpdateTimestamp);
         }
 
     } catch (error) {
